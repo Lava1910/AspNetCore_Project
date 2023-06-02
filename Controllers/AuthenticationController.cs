@@ -56,5 +56,44 @@ namespace AspNetCore_Project.Controllers
             );
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+        [HttpPost]
+        [Route("login")]
+        public IActionResult Login(UserLogin userLogin)
+        {
+            var user = _context.Accounts.Where(p => p.UserEmail.Equals(userLogin.UserEmail)).FirstOrDefault();
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+            bool verified = BCrypt.Net.BCrypt.Verify(userLogin.UserPassword, user.UserPassword);
+            if (!verified)
+            {
+                return Unauthorized();
+            }
+            var Token = GenerateJWT(user);
+            return Ok(new UserData { UserName = user.UserName, UserEmail = user.UserEmail, Token = GenerateJWT(user) });
+        }
+
+        [HttpGet]
+        [Route("profile")]
+        public IActionResult Profile()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                var userClaims = identity.Claims;
+                var Id = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+                var user = new UserData
+                {
+                    Id = Convert.ToInt32(Id),
+                    UserName = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value,
+                    UserEmail = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value,
+                    Role = userClaims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value
+                };
+                return Ok(user);
+            }
+            return Unauthorized(); //status 401
+        }
     }
 }
