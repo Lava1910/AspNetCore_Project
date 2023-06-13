@@ -7,7 +7,7 @@ public partial class PhieuGui
 {
     public string MaPg { get; set; } = null!;
 
-    public string TrongLuong { get; set; } = null!;
+    public string? TrongLuong { get; set; }
 
     public double? CuocPhi { get; set; }
 

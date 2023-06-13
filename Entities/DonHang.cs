@@ -7,15 +7,15 @@ public partial class DonHang
 {
     public string MaDh { get; set; } = null!;
 
-    public int TrongLuong { get; set; }
+    public int? TrongLuong { get; set; }
 
-    public string DiaChiNhan { get; set; } = null!;
+    public string? DiaChiNhan { get; set; }
 
-    public string DiaChiGui { get; set; } = null!;
+    public string? DiaChiGui { get; set; }
 
-    public DateTime NgayGui { get; set; }
+    public DateTime? NgayGui { get; set; }
 
-    public DateTime NgayNhan { get; set; }
+    public DateTime? NgayNhan { get; set; }
 
     public string? BaoGia { get; set; }
 

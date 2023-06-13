@@ -7,11 +7,11 @@ public partial class NhanVien
 {
     public int MaNv { get; set; }
 
-    public string TenNv { get; set; } = null!;
+    public string? TenNv { get; set; }
 
-    public string SdtNv { get; set; } = null!;
+    public string? SdtNv { get; set; }
 
-    public string EmailNv { get; set; } = null!;
+    public string? EmailNv { get; set; }
 
     public string? PhongBan { get; set; }
 

@@ -7,7 +7,7 @@ public partial class BaoGium
 {
     public string MaBg { get; set; } = null!;
 
-    public decimal GiaDv { get; set; }
+    public decimal? GiaDv { get; set; }
 
     public string? MaDv { get; set; }
 

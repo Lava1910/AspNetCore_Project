@@ -1,15 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCore_Project.Dtos;
 using AspNetCore_Project.Entities;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using System.Security.Cryptography;
-using AspNetCore_Project.Dtos;
-using BCrypt.Net;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.AspNetCore.Authorization;
 
 
 namespace AspNetCore_Project.Controllers

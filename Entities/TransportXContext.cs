@@ -41,17 +41,13 @@ public partial class TransportXContext : DbContext
     {
         modelBuilder.Entity<Account>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Account__3213E83F37B4A1C1");
+            entity.HasKey(e => e.Id).HasName("PK__Account__3213E83F016FA168");
 
             entity.ToTable("Account");
 
-            entity.HasIndex(e => e.UserName, "UQ__Account__5F1A1086650E0BB2").IsUnique();
+            entity.HasIndex(e => e.UserEmail, "UQ__Account__EB5FD346D0D7B7ED").IsUnique();
 
-            entity.HasIndex(e => e.UserEmail, "UQ__Account__EB5FD3468192FC9D").IsUnique();
-
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Role).HasMaxLength(255);
             entity.Property(e => e.UserEmail)
                 .HasMaxLength(255)
@@ -59,7 +55,6 @@ public partial class TransportXContext : DbContext
                 .HasColumnName("User_email");
             entity.Property(e => e.UserName)
                 .HasMaxLength(255)
-                .IsUnicode(false)
                 .HasColumnName("User_name");
             entity.Property(e => e.UserPassword)
                 .HasMaxLength(255)
@@ -69,7 +64,7 @@ public partial class TransportXContext : DbContext
 
         modelBuilder.Entity<BaoGium>(entity =>
         {
-            entity.HasKey(e => e.MaBg).HasName("PK__Bao_gia__2E67755ECDE3A702");
+            entity.HasKey(e => e.MaBg).HasName("PK__Bao_gia__2E67755E91374F56");
 
             entity.ToTable("Bao_gia");
 
@@ -89,12 +84,12 @@ public partial class TransportXContext : DbContext
 
             entity.HasOne(d => d.MaDvNavigation).WithMany(p => p.BaoGia)
                 .HasForeignKey(d => d.MaDv)
-                .HasConstraintName("FK__Bao_gia__Ma_DV__17036CC0");
+                .HasConstraintName("FK__Bao_gia__Ma_DV__5D95E53A");
         });
 
         modelBuilder.Entity<BuuCuc>(entity =>
         {
-            entity.HasKey(e => e.MaBc).HasName("PK__Buu_cuc__2E67755A1179AC0B");
+            entity.HasKey(e => e.MaBc).HasName("PK__Buu_cuc__2E67755A43C83102");
 
             entity.ToTable("Buu_cuc");
 
@@ -104,7 +99,7 @@ public partial class TransportXContext : DbContext
                 .IsFixedLength()
                 .HasColumnName("Ma_BC");
             entity.Property(e => e.DiachiBc)
-                .HasColumnType("text")
+                .HasColumnType("ntext")
                 .HasColumnName("Diachi_BC");
             entity.Property(e => e.SdtBc)
                 .HasMaxLength(255)
@@ -117,7 +112,7 @@ public partial class TransportXContext : DbContext
 
         modelBuilder.Entity<DichVu>(entity =>
         {
-            entity.HasKey(e => e.MaDv).HasName("PK__Dich_vu__2E6744ED72726FDC");
+            entity.HasKey(e => e.MaDv).HasName("PK__Dich_vu__2E6744ED07F54E58");
 
             entity.ToTable("Dich_vu");
 
@@ -141,7 +136,7 @@ public partial class TransportXContext : DbContext
 
         modelBuilder.Entity<DonHang>(entity =>
         {
-            entity.HasKey(e => e.MaDh).HasName("PK__Don_hang__2E6744E301F9C307");
+            entity.HasKey(e => e.MaDh).HasName("PK__Don_hang__2E6744E358109795");
 
             entity.ToTable("Don_hang");
 
@@ -156,10 +151,10 @@ public partial class TransportXContext : DbContext
                 .IsFixedLength()
                 .HasColumnName("Bao_gia");
             entity.Property(e => e.DiaChiGui)
-                .HasColumnType("text")
+                .HasColumnType("ntext")
                 .HasColumnName("Dia_chi_gui");
             entity.Property(e => e.DiaChiNhan)
-                .HasColumnType("text")
+                .HasColumnType("ntext")
                 .HasColumnName("Dia_chi_nhan");
             entity.Property(e => e.NgayGui)
                 .HasColumnType("date")
@@ -174,18 +169,14 @@ public partial class TransportXContext : DbContext
 
             entity.HasOne(d => d.BaoGiaNavigation).WithMany(p => p.DonHangs)
                 .HasForeignKey(d => d.BaoGia)
-                .HasConstraintName("FK__Don_hang__Bao_gi__1BC821DD");
+                .HasConstraintName("FK__Don_hang__Bao_gi__625A9A57");
         });
 
         modelBuilder.Entity<KhachHang>(entity =>
         {
-            entity.HasKey(e => e.MaKh).HasName("PK__Khach_Ha__2E62B256B0249FC5");
+            entity.HasKey(e => e.MaKh).HasName("PK__Khach_Ha__2E62B2565CBAE49A");
 
             entity.ToTable("Khach_Hang");
-
-            entity.HasIndex(e => e.SdtKh, "UQ__Khach_Ha__52EB95C1818D5286").IsUnique();
-
-            entity.HasIndex(e => e.EmailKh, "UQ__Khach_Ha__B795E7C3820DC6E0").IsUnique();
 
             entity.Property(e => e.MaKh)
                 .HasMaxLength(10)
@@ -193,7 +184,7 @@ public partial class TransportXContext : DbContext
                 .IsFixedLength()
                 .HasColumnName("Ma_KH");
             entity.Property(e => e.DiachiKh)
-                .HasColumnType("text")
+                .HasColumnType("ntext")
                 .HasColumnName("Diachi_KH");
             entity.Property(e => e.EmailKh)
                 .HasMaxLength(255)
@@ -210,18 +201,14 @@ public partial class TransportXContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.KhachHangs)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Khach_Han__User___123EB7A3");
+                .HasConstraintName("FK__Khach_Han__User___58D1301D");
         });
 
         modelBuilder.Entity<NhanVien>(entity =>
         {
-            entity.HasKey(e => e.MaNv).HasName("PK__Nhan_vie__2E628DA00325D1F5");
+            entity.HasKey(e => e.MaNv).HasName("PK__Nhan_vie__2E628DA0DF9E3FCA");
 
             entity.ToTable("Nhan_vien");
-
-            entity.HasIndex(e => e.SdtNv, "UQ__Nhan_vie__52EBBC70FA99DBF0").IsUnique();
-
-            entity.HasIndex(e => e.EmailNv, "UQ__Nhan_vie__B7958F35863C3525").IsUnique();
 
             entity.Property(e => e.MaNv)
                 .ValueGeneratedNever()
@@ -251,20 +238,20 @@ public partial class TransportXContext : DbContext
 
             entity.HasOne(d => d.BuuCucNavigation).WithMany(p => p.NhanViens)
                 .HasForeignKey(d => d.BuuCuc)
-                .HasConstraintName("FK__Nhan_vien__Buu_c__0C85DE4D");
+                .HasConstraintName("FK__Nhan_vien__Buu_c__55009F39");
 
             entity.HasOne(d => d.PhongBanNavigation).WithMany(p => p.NhanViens)
                 .HasForeignKey(d => d.PhongBan)
-                .HasConstraintName("FK__Nhan_vien__Phong__0B91BA14");
+                .HasConstraintName("FK__Nhan_vien__Phong__540C7B00");
 
             entity.HasOne(d => d.User).WithMany(p => p.NhanViens)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Nhan_vien__User___0D7A0286");
+                .HasConstraintName("FK__Nhan_vien__User___55F4C372");
         });
 
         modelBuilder.Entity<PhieuGui>(entity =>
         {
-            entity.HasKey(e => e.MaPg).HasName("PK__Phieu_gu__2E629DF12E08FEAA");
+            entity.HasKey(e => e.MaPg).HasName("PK__Phieu_gu__2E629DF18D4E708C");
 
             entity.ToTable("Phieu_gui");
 
@@ -289,7 +276,7 @@ public partial class TransportXContext : DbContext
 
         modelBuilder.Entity<PhongBan>(entity =>
         {
-            entity.HasKey(e => e.MaPb).HasName("PK__Phong_ba__2E629DF67A2E87C3");
+            entity.HasKey(e => e.MaPb).HasName("PK__Phong_ba__2E629DF6F0C91DFE");
 
             entity.ToTable("Phong_ban");
 

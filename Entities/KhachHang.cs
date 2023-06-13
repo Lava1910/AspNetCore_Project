@@ -7,11 +7,11 @@ public partial class KhachHang
 {
     public string MaKh { get; set; } = null!;
 
-    public string TenKh { get; set; } = null!;
+    public string? TenKh { get; set; }
 
-    public string SdtKh { get; set; } = null!;
+    public string? SdtKh { get; set; }
 
-    public string EmailKh { get; set; } = null!;
+    public string? EmailKh { get; set; }
 
     public string? DiachiKh { get; set; }
 
