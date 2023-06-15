@@ -23,6 +23,8 @@ public partial class TransportXContext : DbContext
 
     public virtual DbSet<DichVu> DichVus { get; set; }
 
+    public virtual DbSet<District> Districts { get; set; }
+
     public virtual DbSet<DonHang> DonHangs { get; set; }
 
     public virtual DbSet<KhachHang> KhachHangs { get; set; }
@@ -32,6 +34,10 @@ public partial class TransportXContext : DbContext
     public virtual DbSet<PhieuGui> PhieuGuis { get; set; }
 
     public virtual DbSet<PhongBan> PhongBans { get; set; }
+
+    public virtual DbSet<Province> Provinces { get; set; }
+
+    public virtual DbSet<Ward> Wards { get; set; }
 
 //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -132,6 +138,21 @@ public partial class TransportXContext : DbContext
             entity.Property(e => e.TuyenDv)
                 .HasMaxLength(255)
                 .HasColumnName("Tuyen_DV");
+        });
+
+        modelBuilder.Entity<District>(entity =>
+        {
+            entity.HasKey(e => e.DistrictId).HasName("PK__district__2521322BEDE817E1");
+
+            entity.ToTable("district");
+
+            entity.Property(e => e.DistrictId)
+                .ValueGeneratedNever()
+                .HasColumnName("district_id");
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .HasColumnName("name");
+            entity.Property(e => e.ProvinceId).HasColumnName("province_id");
         });
 
         modelBuilder.Entity<DonHang>(entity =>
@@ -288,6 +309,33 @@ public partial class TransportXContext : DbContext
             entity.Property(e => e.TenPb)
                 .HasMaxLength(255)
                 .HasColumnName("Ten_PB");
+        });
+
+        modelBuilder.Entity<Province>(entity =>
+        {
+            entity.HasKey(e => e.ProvinceId).HasName("PK__province__08DCB60F146FD060");
+
+            entity.ToTable("province");
+
+            entity.Property(e => e.ProvinceId)
+                .ValueGeneratedNever()
+                .HasColumnName("province_id");
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .HasColumnName("name");
+        });
+
+        modelBuilder.Entity<Ward>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("wards");
+
+            entity.Property(e => e.DistrictId).HasColumnName("district_id");
+            entity.Property(e => e.Name)
+                .HasMaxLength(255)
+                .HasColumnName("name");
+            entity.Property(e => e.WardsId).HasColumnName("wards_id");
         });
 
         OnModelCreatingPartial(modelBuilder);
